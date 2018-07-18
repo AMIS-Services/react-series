@@ -1,4 +1,5 @@
 .appBar {
+  width: 100%;
   background-color: red;
   overflow: auto;
 }

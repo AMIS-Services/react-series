@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Appbar from '../Appbar/Appbar';
-import AccommodationCard from './AccommodationCard';
+import AccommodationCard from '../AccomodationCard/AccommodationCard';
 import './Accommodations.css';
 
 import { accommodations } from '../../resources/accommodations';
@@ -16,7 +16,7 @@ export default class Accommodations extends React.Component {
       <div className="root">
         <Appbar title="AmisBnB" />
         <main className="card-grid">
-          <Grid container spacing={32}>
+          <Grid container spacing={24}>
             {accommodations.map(this.renderAccommodation)}
           </Grid>
         </main>
