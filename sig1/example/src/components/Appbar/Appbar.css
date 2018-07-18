@@ -1,0 +1,11 @@
+.appBar {
+  background-color: red;
+  overflow: auto;
+}
+
+.title {
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  margin: 16px auto 16px 32px;
+}

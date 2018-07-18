@@ -1,0 +1,36 @@
+.accommodation-card {
+  width: 344px;
+  height: 100%;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.sub-header {
+  color: grey;
+  font-size: 14px;
+}
+
+.preview {
+  max-width: 100%;
+}
+
+footer {
+  margin-top: auto;
+  align-self: flex-end;
+}
+
+.heart-icon path {
+  cursor: pointer;
+  fill: lightgray;
+}
+
+.heart-icon-favorite path {
+  fill: red;
+}

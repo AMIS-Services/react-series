@@ -1,0 +1,9 @@
+1: Remove JSX from App
+2: Add styled Appbar to App
+3: Extract appbar to Appbar
+4: Use props to pass title to Appbar
+5: Move everything Accomodations
+6: Import accomodations and map with a return accommodation.name
+7: Add accommodation.location, image, styling, refactor to renderAccommodation function
+8: Extract to own component
+9: favorite icon with styling
