@@ -10,6 +10,7 @@ export default class AccommodationCard extends React.Component {
   toggleFavorite = () => {
     this.setState(state => ({ favorite: !state.favorite }));
   };
+
   render() {
     const { image, name, location, favorite, description } = this.state;
 
