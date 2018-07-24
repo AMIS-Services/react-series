@@ -6,16 +6,8 @@ import AccommodationCard from '../AccomodationCard/AccommodationCard';
 import { accommodations } from '../../resources/accommodations';
 
 export default class Accommodations extends React.Component {
-  renderFavoriteAccommodation = (accommodation, index) => {
-    if(accommodation.favorite === true) {
-      return (<AccommodationCard accommodation={accommodation} key={index} />)
-    }
-  };
-
   renderAccommodation = (accommodation, index) => {
-    if(accommodation.favorite === false) {
-      return (<AccommodationCard accommodation={accommodation} key={index} />)
-    }
+    return (<AccommodationCard accommodation={accommodation} key={index} />)
   };
 
   render() {
