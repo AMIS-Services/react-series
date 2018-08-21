@@ -1,9 +1,9 @@
 {
   "scripts": {
     "start-db": "docker run -d -p 27017:27017 --name mongo mongo:4.0.0-xenial",
-    "stop-db": "docker rm -f mongo",
+    "start": "nodemon app.js --exec babel-node --presets es2015",
     "seed-db": "node seed",
-    "start": "nodemon app.js --exec babel-node --presets es2015"
+    "stop-db": "docker rm -f mongo"
   },
   "dependencies": {
     "koa": "^2.5.2",
