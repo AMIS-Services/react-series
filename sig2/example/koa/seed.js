@@ -24,7 +24,7 @@ const accommodations = [
     name: "Hutje op de hei",
     location: "De Veluwe",
     favorite: false,
-    image: "http://static.zoom.nl/FE47E471D162973435638C27B1A35BB6-hutje-op-de-hei.jpg",
+    image: "https://i.pinimg.com/originals/b6/e8/12/b6e812e996f90dc575acb6207235adf5.jpg",
     description:
       "Wat is nou een klassiekere Nederlands verblijfsplaats dan een hutje op de hei? Als je even weg wil van de drukte en belachelijkhe huizenprijzen van de stad is dit een perfecte locatie"
   },

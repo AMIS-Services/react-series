@@ -1,12 +1,36 @@
 import * as React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
+// import PropTypes from 'prop-types';
 import Appbar from '../Appbar/Appbar';
 import AccommodationCard from '../AccomodationCard/AccommodationCard';
-import './Accommodations.css';
 
-import { accommodations } from '../../resources/accommodations';
+import { fetchAsJson } from '../../common/fetch';
 
-export default class Accommodations extends React.Component {
+const styles = {
+  cardGrid: {
+    padding: 8,
+  },
+};
+
+class Accommodations extends React.Component {
+  static propTypes = {
+  };
+
+  constructor() {
+    super();
+
+    this.state = {
+      accommodations: null,
+    };
+  }
+
+  componentDidMount() {
+    fetchAsJson('accommodations').then(result => this.setState({
+      accommodations: result,
+    }));
+  }
+
   renderAccommodation = (accommodation, index) => (
     <AccommodationCard accommodation={accommodation} key={index} />
   );
@@ -15,12 +39,14 @@ export default class Accommodations extends React.Component {
     return (
       <div className="root">
         <Appbar title="AmisBnB" />
-        <main className="card-grid">
-          <Grid container spacing={24}>
-            {accommodations.map(this.renderAccommodation)}
+        <main>
+          <Grid container spacing={24} className={this.props.classes.cardGrid}>
+            {this.state.accommodations && this.state.accommodations.map(this.renderAccommodation)}
           </Grid>
         </main>
       </div>
     );
   }
 }
+
+export default withStyles(styles)(Accommodations);

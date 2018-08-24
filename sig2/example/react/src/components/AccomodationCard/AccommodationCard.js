@@ -16,7 +16,7 @@ export default class AccommodationCard extends React.Component {
 
     return (
       <Grid item xs={12} sm={6} lg={4}>
-        <Card className="accommodation-card">
+        <Card className="accommodation-card" onClick={this.props.history.push(id)}>
           <header>
             <img className="preview" src={image} alt="img of accomodation" />
           </header>
