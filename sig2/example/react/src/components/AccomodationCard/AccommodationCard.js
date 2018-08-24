@@ -1,10 +1,11 @@
-import * as React from 'react';
-import { Card, Grid } from '@material-ui/core';
-import './AccommodationCard.css';
+import * as React from "react";
+import { Card, Grid } from "@material-ui/core";
+import "./AccommodationCard.css";
+import { withRouter } from "react-router-dom";
 
-import { HouseIcon } from '../../resources/HouseIcon';
+import { HouseIcon } from "../../resources/HouseIcon";
 
-export default class AccommodationCard extends React.Component {
+class AccommodationCard extends React.Component {
   state = { ...this.props.accommodation };
 
   toggleFavorite = () => {
@@ -16,7 +17,7 @@ export default class AccommodationCard extends React.Component {
 
     return (
       <Grid item xs={12} sm={6} lg={4}>
-        <Card className="accommodation-card" onClick={this.props.history.push(id)}>
+        <Card className="accommodation-card" onClick={this.props.history.push(this.state.id)}>
           <header>
             <img className="preview" src={image} alt="img of accomodation" />
           </header>
@@ -28,9 +29,7 @@ export default class AccommodationCard extends React.Component {
           <footer>
             <HouseIcon
               onClick={this.toggleFavorite}
-              className={
-                favorite ? 'heart-icon heart-icon-favorite' : 'heart-icon'
-              }
+              className={favorite ? "heart-icon heart-icon-favorite" : "heart-icon"}
             />
           </footer>
         </Card>
@@ -38,3 +37,5 @@ export default class AccommodationCard extends React.Component {
     );
   }
 }
+
+export default withRouter(AccommodationCard);
