@@ -12,12 +12,15 @@ class AccommodationCard extends React.Component {
     this.setState(state => ({ favorite: !state.favorite }));
   };
 
+  goToDetail = () => {
+    this.props.history.push(this.state._id);
+  };
+
   render() {
     const { image, name, location, favorite, description } = this.state;
-
     return (
       <Grid item xs={12} sm={6} lg={4}>
-        <Card className="accommodation-card" onClick={this.props.history.push(this.state.id)}>
+        <Card className="accommodation-card" onClick={this.goToDetail}>
           <header>
             <img className="preview" src={image} alt="img of accomodation" />
           </header>

@@ -3,6 +3,7 @@
   "parser": "babel-eslint",
   "rules": {
     "quotes": "off",
+    "no-underscore-dangle": "off",
     "import/prefer-default-export": 0,
     "object-curly-newline": 0,
     "react/destructuring-assignment": 0,
