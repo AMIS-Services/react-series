@@ -42,5 +42,5 @@ app.get("/accommodations/:id", async ctx => {
 });
 
 koa.use(app.routes());
-koa.listen(3030);
-console.log("Koa up at localhost:3030");
+const server = koa.listen(3030);
+console.log(`Koa up at ${server.address().address}:${server.address().port}`);
