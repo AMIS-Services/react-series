@@ -46,6 +46,42 @@ const accommodations = [
     description:
       "Een appartement voor twee personen in Utrecht. Ingericht in typische vtwonen stijl. Mooi op het plaatje maar in de realiteit veel te wit."
   }
+  // {
+  //   id: 2,
+  //   name: "Bezemkast in Amsterdam",
+  //   location: "Amsterdam",
+  //   favorite: false,
+  //   image: "https://i.pinimg.com/originals/db/2b/20/db2b207c1bb61e5b7d1bafe1c81455ff.jpg",
+  //   description:
+  //     "De beste woning die je in Amsterdam gaat vinden onder de 500 euro per nacht. Accepteer de realiteit van de woningnood en zie de positieve kant in: het is erg knus."
+  // },
+  // {
+  //   id: 3,
+  //   name: "Hutje op de hei",
+  //   location: "De Veluwe",
+  //   favorite: false,
+  //   image: "http://static.zoom.nl/FE47E471D162973435638C27B1A35BB6-hutje-op-de-hei.jpg",
+  //   description:
+  //     "Wat is nou een klassiekere Nederlands verblijfsplaats dan een hutje op de hei? Als je even weg wil van de drukte en belachelijkhe huizenprijzen van de stad is dit een perfecte locatie"
+  // },
+  // {
+  //   id: 4,
+  //   name: "Vakantievilla Vacuna",
+  //   location: "Domburg",
+  //   favorite: true,
+  //   image: "http://www.zeelandrelais.com/files/DSC00204.jpg",
+  //   description:
+  //     "Een rustieke vakantievilla gelegen in Domburg aan de zeeuwse kust. Uitstekende beheersing van de Duitse taal is helaas wel een vereist voor communicatie in de omgeving."
+  // },
+  // {
+  //   id: 5,
+  //   name: "Appartement voor twee personen",
+  //   location: "Utrecht",
+  //   favorite: false,
+  //   image: "http://www.interieur-inrichting.net/afbeeldingen/knus-scandinavisch-appartement-645x484.jpg",
+  //   description:
+  //     "Een appartement voor twee personen in Utrecht. Ingericht in typische vtwonen stijl. Mooi op het plaatje maar in de realiteit veel te wit."
+  // }
 ];
 
 accommodations.map(acc => {
@@ -57,6 +93,7 @@ accommodations.map(acc => {
   };
   request(options, (err, res, body) => {
     if (err) console.log(err);
-    console.log("accommodation seeded");
+    if (res.statusCode === 200) console.log("accommodation seeded");
+    if (res.statusCode !== 200) console.log("error: statuscode " + res.statusCode);
   });
 });
