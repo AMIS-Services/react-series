@@ -1,9 +1,46 @@
 import * as React from "react";
-import { Card, Grid } from "@material-ui/core";
-import "./AccommodationCard.css";
+import { Card, Grid, withStyles } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 
 import { HouseIcon } from "../../resources/HouseIcon";
+
+const styles = {
+  root: {
+    height: "100%",
+    padding: 8,
+    display: "flex",
+    flexDirection: "column",
+    margin: 20,
+    "& main": {
+      width: "100%" - 24,
+    },
+    "& h2": {
+      margin: 8,
+    },
+    "& p": {
+      fontSize: 16,
+    },
+    "& footer": {
+      marginTop: "auto",
+      alignSelf: "flex-end",
+    },
+  },
+  thumbnail: {
+    width: "100%",
+  },
+  subHeader: {
+    color: "grey",
+    fontSize: 14,
+  },
+  houseIcon: {
+    cursor: "pointer",
+    fill: "lightgray",
+  },
+  houseIconFavorite: {
+    cursor: "pointer",
+    fill: "red",
+  },
+};
 
 class AccommodationCard extends React.Component {
   state = { ...this.props.accommodation };
@@ -13,16 +50,16 @@ class AccommodationCard extends React.Component {
   };
 
   goToDetail = () => {
-    this.props.history.push(this.state._id);
+    this.props.history.push("accomodation/" + this.state._id);
   };
 
   render() {
     const { image, name, location, favorite, description } = this.state;
     return (
-      <Grid item xs={12} sm={6} lg={4}>
-        <Card className="accommodation-card" onClick={this.goToDetail}>
-          <header>
-            <img className="preview" src={image} alt="img of accomodation" />
+      <Grid item xs={12} sm={4} lg={3}>
+        <Card className={this.props.classes.root}>
+          <header onClick={this.goToDetail}>
+            <img className={this.props.classes.thumbnail} src={image} alt="img of accomodation" />
           </header>
           <main>
             <h2>{name}</h2>
@@ -32,7 +69,7 @@ class AccommodationCard extends React.Component {
           <footer>
             <HouseIcon
               onClick={this.toggleFavorite}
-              className={favorite ? "heart-icon heart-icon-favorite" : "heart-icon"}
+              className={favorite ? this.props.classes.houseIconFavorite : this.props.classes.houseIcon}
             />
           </footer>
         </Card>
@@ -41,4 +78,4 @@ class AccommodationCard extends React.Component {
   }
 }
 
-export default withRouter(AccommodationCard);
+export default withStyles(styles)(withRouter(AccommodationCard));
