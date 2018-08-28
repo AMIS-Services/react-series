@@ -93,7 +93,7 @@ accommodations.map(acc => {
   };
   request(options, (err, res, body) => {
     if (err) console.log(err);
-    if (res.statusCode === 200) console.log("accommodation seeded");
-    if (res.statusCode !== 200) console.log("error: statuscode " + res.statusCode);
+    if (res && res.statusCode === 200) console.log("accommodation seeded");
+    if (res && res.statusCode !== 200) console.log("error: statuscode " + res.statusCode);
   });
 });
