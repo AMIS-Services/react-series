@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import * as React from "react";
+import { withStyles } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
 // import PropTypes from 'prop-types';
-import Appbar from '../Appbar/Appbar';
-import AccommodationCard from '../AccomodationCard/AccommodationCard';
+import Appbar from "../Appbar/Appbar";
+import AccommodationCard from "../AccomodationCard/AccommodationCard";
 
-import { fetchAsJson } from '../../common/fetch';
+import { fetch } from "../../common/fetch";
 
 const styles = {
   cardGrid: {
@@ -14,8 +14,7 @@ const styles = {
 };
 
 class Accommodations extends React.Component {
-  static propTypes = {
-  };
+  static propTypes = {};
 
   constructor() {
     super();
@@ -26,14 +25,10 @@ class Accommodations extends React.Component {
   }
 
   componentDidMount() {
-    fetchAsJson('accommodations').then(result => this.setState({
-      accommodations: result,
-    }));
+    fetch("accommodations").then(result => this.setState({ accommodations: result }));
   }
 
-  renderAccommodation = (accommodation, index) => (
-    <AccommodationCard accommodation={accommodation} key={index} />
-  );
+  renderAccommodation = (accommodation, index) => <AccommodationCard accommodation={accommodation} key={index} />;
 
   render() {
     return (

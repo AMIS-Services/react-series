@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { withRouter } from 'react-router-dom';
-import { fetchAsJson } from '../../common/fetch';
+import * as React from "react";
+import { withRouter } from "react-router-dom";
+import { fetch } from "../../common/fetch";
 
 class AccommodationsDetail extends React.Component {
   constructor() {
@@ -14,17 +14,11 @@ class AccommodationsDetail extends React.Component {
   componentDidMount() {
     const relativePath = this.props.match.url;
     const path = relativePath.slice(1);
-    fetchAsJson(`accommodations/${path}`).then(result => this.setState({
-      accommodation: result,
-    }));
+    fetch(`accommodations/${path}`).then(result => this.setState({ accommodation: result }));
   }
 
   render() {
-    return (
-      <div className="root">
-        {this.state.accommodation && this.state.accommodation.name}
-      </div>
-    );
+    return <div className="root">{this.state.accommodation && this.state.accommodation.name}</div>;
   }
 }
 
