@@ -14,7 +14,10 @@
     "arrow-parens": 0,
     "max-len": 0,
     "arrow-body-style": 0,
-    "no-alert": 0
+    "no-alert": 0,
+    "prefer-template": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-static-element-interactions": 0 
   },
   "globals": {
     "window": true,

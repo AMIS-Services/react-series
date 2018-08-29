@@ -47,6 +47,7 @@ class AccommodationCard extends React.Component {
 
   toggleFavorite = () => {
     this.setState(state => ({ favorite: !state.favorite }));
+    // todo make persistent
   };
 
   goToDetail = () => {

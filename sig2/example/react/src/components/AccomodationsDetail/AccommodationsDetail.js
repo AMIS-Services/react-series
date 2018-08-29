@@ -1,6 +1,9 @@
 import * as React from "react";
+import { withStyles } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import { fetch } from "../../common/fetch";
+
+const styles = {};
 
 class AccommodationsDetail extends React.Component {
   constructor() {
@@ -12,8 +15,7 @@ class AccommodationsDetail extends React.Component {
   }
 
   componentDidMount() {
-    const relativePath = this.props.match.url;
-    const path = relativePath.slice(1);
+    const path = this.props.match.params.id;
     fetch(`accommodations/${path}`).then(result => this.setState({ accommodation: result }));
   }
 
@@ -22,4 +24,4 @@ class AccommodationsDetail extends React.Component {
   }
 }
 
-export default withRouter(AccommodationsDetail);
+export default withStyles(styles)(withRouter(AccommodationsDetail));

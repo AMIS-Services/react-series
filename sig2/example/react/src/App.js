@@ -14,8 +14,8 @@ class App extends Component {
       <Router history={browserHistory}>
         <Switch>
           <Route path="/" exact component={Accommodations} />
-          <Route path="/:id" exact component={AccommodationsDetail} />
-          <Route path="*" exact component={Page404} />
+          <Route path="/accomodation/:id" exact component={AccommodationsDetail} />
+          <Route path="/*" exact component={Page404} />
         </Switch>
       </Router>
     );
