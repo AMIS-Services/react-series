@@ -32,7 +32,7 @@ class Accommodations extends React.Component {
 
   render() {
     return (
-      <div className="root">
+      <div className={this.props.classes.root}>
         <Appbar title="AmisBnB" />
         <main>
           <Grid container spacing={24} className={this.props.classes.cardGrid}>
