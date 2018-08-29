@@ -43,6 +43,11 @@ app.get("/accommodations/:id", async ctx => {
   ctx.body = accommodation;
 });
 
+app.put("/accommodations/:id", async ctx => {
+  console.log(`PUT /accomodations/${ctx.params.id}`);
+  await Accommodation.update(ctx.request.body);
+});
+
 koa.use(app.routes());
 const server = koa.listen(3030);
 console.log(`Koa up at ${server.address().address}:${server.address().port}`);
