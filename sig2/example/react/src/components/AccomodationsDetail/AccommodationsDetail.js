@@ -52,22 +52,21 @@ class AccommodationsDetail extends React.Component {
   }
 
   render() {
+    if (!this.state.accommodation) return null;
     return (
       <div className={this.props.classes.root}>
         <Appbar title="AmisBnB" />
         <header>
           <img
             className={this.props.classes.imageCover}
-            src={this.state.accommodation && this.state.accommodation.image}
-            alt={this.state.accommodation && this.state.accommodation.name}
+            src={this.state.accommodation.image}
+            alt={this.state.accommodation.name}
           />
         </header>
         <main>
-          <h2>{this.state.accommodation && this.state.accommodation.name}</h2>
-          <div className={this.props.classes.subHeader}>
-            {this.state.accommodation && this.state.accommodation.location}
-          </div>
-          <p>{this.state.accommodation && this.state.accommodation.description}</p>
+          <h2>{this.state.accommodation.name}</h2>
+          <div className={this.props.classes.subHeader}>{this.state.accommodation.location}</div>
+          <p>{this.state.accommodation.description}</p>
         </main>
         <footer />
       </div>
