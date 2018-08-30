@@ -1,11 +1,6 @@
 const handleResponse = response => {
-  function redirectTo404() {
-    window.location.replace("http://localhost:3000/page404/");
-  }
-
   if (!response.ok) {
-    redirectTo404();
-    window.alert(`ERROR ${response.status}: ${response.statusText}`);
+    console.error(`ERROR ${response.status}: ${response.statusText}`);
     return undefined;
   }
   return response.json();
@@ -13,8 +8,9 @@ const handleResponse = response => {
 
 export const fetch = (path, options = {}) => {
   const url = `http://localhost:3030/${path}`;
+  const opts = { headers: { "Content-Type": "application/json", Accept: "application/json" }, ...options };
   return window
-    .fetch(url, options)
+    .fetch(url, opts)
     .then(handleResponse)
-    .catch(error => window.alert(`Network error: ${error}`));
+    .catch(error => console.error(`Network error: ${error}`));
 };

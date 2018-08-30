@@ -12,8 +12,8 @@ mongoose.connect(
   { useNewUrlParser: true }
 );
 
+koa.use(cors());
 app.use(bodyParser());
-app.use(cors());
 
 app.get("/", async ctx => {
   console.log("GET /");
@@ -28,14 +28,13 @@ app.get("/accommodations", async ctx => {
 
 app.post("/accommodations", async ctx => {
   console.log("POST /accommodations");
-  console.log(ctx.request.body);
   const accommodations = await Accommodation.create(ctx.request.body);
   ctx.body = accommodations;
 });
 
 app.get("/accommodations/:id", async ctx => {
   const id = ctx.params.id;
-  console.log(`GET /accomodations/${id}`);
+  console.log(`GET /accommodations/${id}`);
   if (!id.match(/^[0-9a-fA-F]{24}$/)) {
     ctx.throw(404);
   }
@@ -44,10 +43,14 @@ app.get("/accommodations/:id", async ctx => {
 });
 
 app.put("/accommodations/:id", async ctx => {
-  console.log(`PUT /accomodations/${ctx.params.id}`);
-  await Accommodation.update(ctx.request.body);
+  const id = ctx.params.id;
+  console.log(`PUT /accommodations/${id}`);
+  await Accommodation.update({ _id: id }, ctx.request.body);
+  const accommodation = await Accommodation.findById(id);
+  ctx.body = accommodation;
 });
 
 koa.use(app.routes());
+koa.use(app.allowedMethods());
 const server = koa.listen(3030);
 console.log(`Koa up at ${server.address().address}:${server.address().port}`);

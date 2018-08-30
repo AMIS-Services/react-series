@@ -3,6 +3,7 @@ import { Card, Grid, withStyles } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 
 import { HouseIcon } from "../../resources/HouseIcon";
+import { fetch } from "../../common/fetch";
 
 const styles = {
   root: {
@@ -45,9 +46,13 @@ const styles = {
 class AccommodationCard extends React.Component {
   state = { ...this.props.accommodation };
 
-  toggleFavorite = () => {
-    this.setState(state => ({ favorite: !state.favorite }));
-    // todo make persistent
+  toggleFavorite = async () => {
+    await this.setState(state => ({ favorite: !state.favorite }));
+    const { _id, createdAt, updatedAt, ...accommodation } = this.state;
+    fetch(`accommodations/${this.state._id}`, {
+      method: "PUT",
+      body: JSON.stringify(accommodation),
+    });
   };
 
   goToDetail = () => {
