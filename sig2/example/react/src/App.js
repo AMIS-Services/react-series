@@ -16,9 +16,9 @@ class App extends Component {
         <Appbar title="AmisBnB" />
         <Router history={browserHistory}>
           <Switch>
-            <Route path="/" exact component={Accommodations} />
-            <Route path="/accomodation/:id" exact component={AccommodationsDetail} />
-            <Route path="/*" exact component={Page404} />
+            <Route exact path="/" component={Accommodations} />
+            <Route path="/accomodation/:id" component={AccommodationsDetail} />
+            <Route path="/*" component={Page404} />
           </Switch>
         </Router>
       </React.Fragment>

@@ -12,8 +12,6 @@ const styles = {
 };
 
 class Accommodations extends React.Component {
-  static propTypes = {};
-
   state = { accommodations: undefined };
 
   componentDidMount() {

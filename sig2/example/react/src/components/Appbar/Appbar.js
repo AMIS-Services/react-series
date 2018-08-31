@@ -1,5 +1,6 @@
 import * as React from "react";
 import { withStyles } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 const styles = {
   root: {
@@ -31,3 +32,7 @@ class Appbar extends React.Component {
 }
 
 export default withStyles(styles)(Appbar);
+
+Appbar.propTypes = {
+  title: PropTypes.string.isRequired,
+};

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Card, Grid, withStyles } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
-
+import PropTypes from "prop-types";
 import { HouseIcon } from "../../resources/HouseIcon";
 import { fetch } from "../../common/fetch";
 
@@ -85,3 +85,13 @@ class AccommodationCard extends React.Component {
 }
 
 export default withStyles(styles)(withRouter(AccommodationCard));
+
+AccommodationCard.propTypes = {
+  accommodation: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    favorite: PropTypes.bool.isRequired,
+  }).isRequired,
+};

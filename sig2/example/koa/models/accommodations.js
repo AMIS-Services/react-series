@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const AccommodationSchema = new mongoose.Schema(
   {
@@ -6,11 +6,11 @@ const AccommodationSchema = new mongoose.Schema(
     location: { type: String },
     favorite: { type: Boolean },
     image: { type: String },
-    description: { type: String },
+    description: { type: String }
   },
   { timestamps: true }
 );
 
-const Accommodation = mongoose.model('Accommodation', AccommodationSchema);
+const Accommodation = mongoose.model("Accommodation", AccommodationSchema);
 
 export default Accommodation;
