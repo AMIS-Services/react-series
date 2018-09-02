@@ -2,6 +2,8 @@ import * as React from "react";
 import { withStyles } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import { fetch } from "../../common/fetch";
+import { CaretLeftIcon } from "../../resources/CaretLeftIcon";
+import { CaretRightIcon } from "../../resources/CaretRightIcon";
 
 const styles = {
   root: {
@@ -24,10 +26,32 @@ const styles = {
       alignSelf: "flex-end",
     },
   },
+  image: {
+    height: 700,
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  arrow: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+    fontSize: 24,
+    color: "#c9c9c9",
+    backgroundColor: "#dadada",
+    height: 48,
+    width: 48,
+    borderRadius: 24,
+    margin: 8,
+  },
   imageCover: {
-    width: "100%",
-    maxHeight: 700,
+    maxWidth: "90%",
+    maxHeight: "100%",
     overflow: "hidden",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 8,
   },
   subHeader: {
     color: "red",
@@ -37,7 +61,7 @@ const styles = {
 };
 
 class AccommodationsDetail extends React.Component {
-  state = { accommodation: undefined };
+  state = { accommodation: undefined, imageIndex: 0 };
 
   componentDidMount() {
     const path = this.props.match.params.id;
@@ -50,16 +74,38 @@ class AccommodationsDetail extends React.Component {
     });
   }
 
+  nextImage = () => {
+    const { imageIndex, accommodation } = this.state;
+    const newIndex = imageIndex < accommodation.images.length - 1 ? imageIndex + 1 : 0;
+    this.setState({ imageIndex: newIndex });
+  };
+
+  previousImage = () => {
+    const { imageIndex, accommodation } = this.state;
+    const newIndex = imageIndex > 0 ? imageIndex - 1 : accommodation.images.length - 1;
+    this.setState({ imageIndex: newIndex });
+  };
+
   render() {
     if (!this.state.accommodation) return null;
     return (
       <div className={this.props.classes.root}>
-        <header>
+        <header className={this.props.classes.image}>
+          {this.state.accommodation.images.length > 1 && (
+            <div className={this.props.classes.arrow} onClick={this.previousImage}>
+              <CaretLeftIcon />
+            </div>
+          )}
           <img
             className={this.props.classes.imageCover}
-            src={this.state.accommodation.image}
+            src={this.state.accommodation.images[this.state.imageIndex]}
             alt={this.state.accommodation.name}
           />
+          {this.state.accommodation.images.length > 1 && (
+            <div className={this.props.classes.arrow} onClick={this.nextImage}>
+              <CaretRightIcon />
+            </div>
+          )}
         </header>
         <main>
           <h2>{this.state.accommodation.name}</h2>

@@ -23,7 +23,16 @@ app.get("/", async ctx => {
 app.get("/accommodations", async ctx => {
   console.log("GET /accommodations");
   const accommodations = await Accommodation.find();
-  ctx.body = accommodations;
+
+  const accommodationsOverview = accommodations.map(a => ({
+    _id: a._id,
+    location: a.location,
+    name: a.name,
+    description: a.description,
+    favorite: a.favorite,
+    image: a.images[0]
+  }));
+  ctx.body = accommodationsOverview;
 });
 
 app.post("/accommodations", async ctx => {
