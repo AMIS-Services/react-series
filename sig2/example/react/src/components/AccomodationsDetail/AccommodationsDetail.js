@@ -1,5 +1,5 @@
 import * as React from "react";
-import { withStyles } from "@material-ui/core";
+import { withStyles, Grid } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import { fetch } from "../../common/fetch";
 import { CaretLeftIcon } from "../../resources/CaretLeftIcon";
@@ -10,9 +10,9 @@ const styles = {
     height: "10%",
     display: "flex",
     flexDirection: "column",
+    alignItems: "center",
     "& main": {
       width: "100%",
-      marginLeft: 100,
     },
     "& h2": {
       marginLeft: 100,
@@ -28,6 +28,7 @@ const styles = {
   },
   image: {
     height: 700,
+    width: "100%",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -58,6 +59,18 @@ const styles = {
     fontSize: 12,
     marginLeft: 100,
   },
+  amenities: {
+    width: 430,
+    border: "1.5px solid #ababab",
+    borderRadius: 8,
+    marginBottom: 24,
+  },
+  amenity: { marginTop: 8, display: "flex", justifyContent: "center" },
+  toggleAmenities: {
+    fontWeight: "bold",
+    fontSize: "1.2em",
+    cursor: "pointer",
+  },
 };
 
 class AccommodationsDetail extends React.Component {
@@ -86,7 +99,10 @@ class AccommodationsDetail extends React.Component {
     this.setState({ imageIndex: newIndex });
   };
 
+  toggleAmenities = () => {};
+
   render() {
+    const maxAmenities = 6;
     if (!this.state.accommodation) return null;
     return (
       <div className={this.props.classes.root}>
@@ -112,6 +128,25 @@ class AccommodationsDetail extends React.Component {
           <div className={this.props.classes.subHeader}>{this.state.accommodation.location}</div>
           <p>{this.state.accommodation.description}</p>
         </main>
+        <div className={this.props.classes.amenities}>
+          <Grid container spacing={24}>
+            {this.state.accommodation.amenities.map(
+              (amenity, index) =>
+                index < maxAmenities && (
+                  <Grid item xs={6} className={this.props.classes.amenity}>
+                    <span>{amenity.replace(/^\w/, c => c.toUpperCase())}</span>
+                  </Grid>
+                )
+            )}
+          </Grid>
+          {this.state.accommodation.amenities.length > maxAmenities && (
+            <Grid item xs={12} className={this.props.classes.amenity}>
+              <div onClick={this.toggleAmenities} className={this.props.classes.toggleAmenities}>
+                <span>....</span>
+              </div>
+            </Grid>
+          )}
+        </div>
         <footer />
       </div>
     );
