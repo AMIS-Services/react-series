@@ -1,6 +1,7 @@
 import Router from "koa-router";
 import User from "./usersSchema";
 import bcrypt from "bcrypt";
+import { isAuth } from "../auth/helpers";
 
 export const router = new Router();
 
@@ -17,7 +18,7 @@ router.post("/", async ctx => {
   ctx.body = savedUser;
 });
 
-router.get("/:id", async ctx => {
+router.use(isAuth).get("/:id", async ctx => {
   const id = ctx.params.id;
   console.log(`GET user ${id}`);
   const user = await User.findById(id);
