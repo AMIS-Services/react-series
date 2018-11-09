@@ -26,7 +26,8 @@ const styles = {
 
 class LoginDialog extends React.Component {
   handleLogin = () => {
-    // TODO: handle login
+    // TODO: hookup to backend
+    this.props.handleLogin();
     this.props.handleClose();
   };
 

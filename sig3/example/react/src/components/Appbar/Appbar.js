@@ -1,6 +1,8 @@
 import * as React from "react";
 import { withStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import * as classNames from "classnames";
 import LoginDialog from "../Login/LoginDialog";
 
 const styles = {
@@ -18,21 +20,36 @@ const styles = {
     cursor: "pointer",
     margin: "16px auto 16px 32px",
   },
-  login: {
+  user: {
     marginRight: 32,
+
     color: "white",
+  },
+  pointer: {
     cursor: "pointer",
+  },
+  link: {
+    textDecoration: "none",
+    color: "white",
+  },
+  linkContainer: {
+    display: "flex",
+    "& div:nth-child(2n)": {
+      marginLeft: 16,
+    },
   },
 };
 
 class Appbar extends React.PureComponent {
   state = {
+    isAuthenticated: false,
     isLoginDialogOpen: false,
   };
 
-  goHome = () => {
-    // TODO: use router
-    window.location.replace("http://localhost:3000/");
+  toggleAuthentication = () => {
+    this.setState(prevState => ({
+      isAuthenticated: !prevState.isAuthenticated,
+    }));
   };
 
   toggleDialog = () => {
@@ -42,15 +59,31 @@ class Appbar extends React.PureComponent {
   };
 
   render() {
+    const { isAuthenticated, isLoginDialogOpen } = this.state;
     return (
       <div className={this.props.classes.root}>
-        <div className={this.props.classes.title} onClick={this.goHome}>
-          {this.props.title}
+        <div className={this.props.classes.title}>
+          <Link className={this.props.classes.link} to="/">
+            {this.props.title}
+          </Link>
         </div>
-        <div className={this.props.classes.login} onClick={this.toggleDialog}>
-          Login
-        </div>
-        <LoginDialog open={this.state.isLoginDialogOpen} handleClose={this.toggleDialog} />
+        {isAuthenticated && <div className={this.props.classes.user}>Welkom!</div>}
+        {!isAuthenticated && (
+          <div className={this.props.classes.linkContainer}>
+            <div className={this.props.classes.pointer}>
+              <Link className={this.props.classes.link} to="/create">
+                Accommodatie aanmaken
+              </Link>
+            </div>
+            <div
+              className={classNames(this.props.classes.user, this.props.classes.pointer)}
+              onClick={this.toggleDialog}
+            >
+              Inloggen
+            </div>
+          </div>
+        )}
+        <LoginDialog open={isLoginDialogOpen} handleLogin={this.toggleAuthentication} handleClose={this.toggleDialog} />
       </div>
     );
   }

@@ -133,7 +133,7 @@ class AccommodationsDetail extends React.Component {
             {this.state.accommodation.amenities.map(
               (amenity, index) =>
                 index < maxAmenities && (
-                  <Grid item xs={6} className={this.props.classes.amenity}>
+                  <Grid key={index} item xs={6} className={this.props.classes.amenity}>
                     <span>{amenity.replace(/^\w/, c => c.toUpperCase())}</span>
                   </Grid>
                 )
