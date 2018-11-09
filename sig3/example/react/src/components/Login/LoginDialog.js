@@ -1,8 +1,10 @@
 import * as React from "react";
 import { withStyles, Dialog, DialogTitle, Input, Button } from "@material-ui/core";
+import { UserContext } from "../../common/context";
 
 const styles = {
   title: {
+    width: 320,
     backgroundColor: "red",
     "& h2": {
       color: "white",
@@ -25,9 +27,15 @@ const styles = {
 };
 
 class LoginDialog extends React.Component {
+  constructor(props) {
+    super(props);
+    this.emailRef = React.createRef();
+    this.passwordRef = React.createRef();
+  }
+
   handleLogin = () => {
-    // TODO: handle login
-    this.props.handleClose();
+    const user = this.context.login(this.emailRef.value, this.passwordRef.value);
+    if (user) this.props.handleClose();
   };
 
   render() {
@@ -35,15 +43,19 @@ class LoginDialog extends React.Component {
       <Dialog open={this.props.open}>
         <DialogTitle className={this.props.classes.title}>Login</DialogTitle>
         <div className={this.props.classes.userFields}>
-          <div>
-            Username:
-            <Input />
-          </div>
-          <div>
-            Password:
-            <Input />
-          </div>
-          {/* TODO: Register */}
+          <Input
+            inputRef={input => {
+              this.emailRef = input;
+            }}
+            placeholder="Email"
+          />
+          <Input
+            type="password"
+            inputRef={input => {
+              this.passwordRef = input;
+            }}
+            placeholder="Password"
+          />
         </div>
         <div className={this.props.classes.buttons}>
           <Button onClick={this.handleLogin}>OK</Button>
@@ -53,5 +65,7 @@ class LoginDialog extends React.Component {
     );
   }
 }
+
+LoginDialog.contextType = UserContext;
 
 export default withStyles(styles)(LoginDialog);

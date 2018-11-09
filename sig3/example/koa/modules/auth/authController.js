@@ -21,5 +21,5 @@ router.post("/", async ctx => {
     ctx.throw(401, error);
   }
   const jwt = jsonwebtoken.sign({ id: user.id }, "super veilige key");
-  ctx.body = jwt;
+  ctx.body = { jwt };
 });
