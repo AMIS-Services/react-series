@@ -56,7 +56,7 @@ class AccommodationCard extends React.Component {
   };
 
   goToDetail = () => {
-    this.props.history.push("accomodation/" + this.state._id);
+    this.props.history.push("accommodation/" + this.state._id);
   };
 
   render() {
