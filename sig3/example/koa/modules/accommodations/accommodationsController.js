@@ -4,7 +4,7 @@ import { isAuth } from "../auth/helpers";
 
 export const router = new Router();
 
-router.get("/accommodations", async ctx => {
+router.get("/", async ctx => {
   console.log("GET /accommodations");
   const accommodations = await Accommodation.find();
 

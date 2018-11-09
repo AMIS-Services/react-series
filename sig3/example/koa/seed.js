@@ -1,6 +1,6 @@
-const request = require("request");
+const request = require("request-promise");
 
-const users = [{ email: "bram.kaashoek@amis.nl", password: "superVeiligWachtwoord", username: "Bram" }];
+const users = [{ email: "bram.kaashoek@amis.nl", password: "123", username: "Bram" }];
 
 const accommodations = [
   {
@@ -143,29 +143,47 @@ const accommodations = [
   }
 ];
 
-const getOptions = (path, body) => ({
-  url: `http://localhost:3030/${path}`,
-  headers: { "Content-Type": "application/json" },
-  method: "POST",
-  body: JSON.stringify(body)
-});
+const getOptions = (path, body, token = undefined) => {
+  const options = {
+    url: `http://localhost:3030/${path}`,
+    headers: { "Content-Type": "application/json" },
+    method: "POST",
+    body: JSON.stringify(body)
+  };
+  if (token) options.headers["Authorization"] = `Bearer ${token}`;
+  return options;
+};
 
-const seed = (path, options) => {
-  request(options, (err, res, body) => {
+const seed = async options => {
+  await request(options, (err, res) => {
     if (err) console.log(err);
-    if (res && res.statusCode === 200) console.log(`seeded on ${path}`);
+    if (res && res.statusCode === 200) console.log(`seeded on ${options.url}`);
     if (res && res.statusCode !== 200) console.log(`error: statuscode ${res.statusCode}`);
   });
 };
 
-users.map(user => {
-  const path = "users";
+// seed users
+const userPromises = users.map(async user => {
   const options = getOptions("users", user);
-  seed(path, options);
+  await seed(options);
 });
 
-accommodations.map(acc => {
-  const path = "accommodations";
-  const options = getOptions(path, acc);
-  seed(path, options);
+// wait for all users to be seeded
+Promise.all(userPromises).then(async () => {
+  let token = undefined;
+  // get auth token for the first user
+  await request(
+    getOptions("auth", {
+      ...users[0]
+    }),
+    (_, res) => {
+      token = res.body;
+    }
+  );
+
+  // seed accommodations using the token
+  accommodations.map(acc => {
+    const options = getOptions("accommodations", acc, token);
+    seed(options);
+  });
 });

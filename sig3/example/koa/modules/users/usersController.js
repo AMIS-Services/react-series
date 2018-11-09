@@ -8,8 +8,14 @@ export const router = new Router();
 router.post("/", async ctx => {
   console.log(`POST /users`);
   const user = ctx.request.body;
-  if (User.findOne({ email: user.email })) {
-    const error = "User with this email already exists";
+  const existingUser = await User.findOne({ $or: [({ email: user.email }, { username: user.username })] });
+  if (!user.email || !user.username || !user.password) {
+    const error = `please provide email, username and password`;
+    console.log(error);
+    ctx.throw(400, error);
+  }
+  if (existingUser) {
+    const error = "This email and/or username are already in use";
     console.log(error);
     ctx.throw(418, error);
   }
