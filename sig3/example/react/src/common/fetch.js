@@ -9,6 +9,8 @@ const handleResponse = response => {
 export const fetch = (path, options = {}) => {
   const url = `http://localhost:3030/${path}`;
   const opts = { headers: { "Content-Type": "application/json", Accept: "application/json" }, ...options };
+  const jwt = window.localStorage.getItem("jwt");
+  if (jwt) opts.headers.Authorization = `Bearer ${jwt}`;
   return window
     .fetch(url, opts)
     .then(handleResponse)

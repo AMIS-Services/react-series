@@ -28,6 +28,7 @@ const styles = {
   },
   thumbnail: {
     width: "100%",
+    cursor: "pointer",
   },
   subHeader: {
     color: "grey",

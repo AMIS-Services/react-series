@@ -1,9 +1,10 @@
 import * as React from "react";
+import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import * as classNames from "classnames";
 import LoginDialog from "../Login/LoginDialog";
+import { UserContext } from "../../common/context";
 
 const styles = {
   root: {
@@ -20,7 +21,7 @@ const styles = {
     cursor: "pointer",
     margin: "16px auto 16px 32px",
   },
-  user: {
+  userMenu: {
     marginRight: 32,
 
     color: "white",
@@ -42,14 +43,11 @@ const styles = {
 
 class Appbar extends React.PureComponent {
   state = {
-    isAuthenticated: false,
     isLoginDialogOpen: false,
   };
 
-  toggleAuthentication = () => {
-    this.setState(prevState => ({
-      isAuthenticated: !prevState.isAuthenticated,
-    }));
+  goHome = () => {
+    this.props.history.push("/");
   };
 
   toggleDialog = () => {
@@ -59,37 +57,38 @@ class Appbar extends React.PureComponent {
   };
 
   render() {
-    const { isAuthenticated, isLoginDialogOpen } = this.state;
     return (
-      <div className={this.props.classes.root}>
-        <div className={this.props.classes.title}>
-          <Link className={this.props.classes.link} to="/">
-            {this.props.title}
-          </Link>
-        </div>
-        {isAuthenticated && <div className={this.props.classes.user}>Welkom!</div>}
-        {!isAuthenticated && (
-          <div className={this.props.classes.linkContainer}>
-            <div className={this.props.classes.pointer}>
-              <Link className={this.props.classes.link} to="/create">
-                Accommodatie aanmaken
-              </Link>
+      <UserContext.Consumer>
+        {context => (
+          <div className={this.props.classes.root}>
+            <div className={this.props.classes.title} onClick={this.goHome}>
+              {this.props.title}
             </div>
-            <div
-              className={classNames(this.props.classes.user, this.props.classes.pointer)}
-              onClick={this.toggleDialog}
-            >
-              Inloggen
-            </div>
+            {context.user ? (
+              <React.Fragment>
+                <div className={this.props.classes.pointer}>
+                  <Link className={this.props.classes.link} to="/create">
+                    Accommodatie aanmaken
+                  </Link>
+                </div>
+                <div className={this.props.classes.userMenu} onClick={context.logout}>
+                  {context.user.username}
+                </div>
+              </React.Fragment>
+            ) : (
+              <div className={this.props.classes.userMenu} onClick={this.toggleDialog}>
+                Login
+                <LoginDialog open={this.state.isLoginDialogOpen} handleClose={this.toggleDialog} />
+              </div>
+            )}
           </div>
         )}
-        <LoginDialog open={isLoginDialogOpen} handleLogin={this.toggleAuthentication} handleClose={this.toggleDialog} />
-      </div>
+      </UserContext.Consumer>
     );
   }
 }
 
-export default withStyles(styles)(Appbar);
+export default withStyles(styles)(withRouter(Appbar));
 
 Appbar.propTypes = {
   title: PropTypes.string.isRequired,

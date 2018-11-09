@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Switch, Router, Route } from "react-router-dom";
+import { Router } from "react-router-dom";
 import createHistory from "history/createBrowserHistory";
-import Frame from "./components/Frame";
+import Frame from "./components/Frame/Frame";
 
 const browserHistory = createHistory();
 
@@ -10,9 +10,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <Router history={browserHistory}>
-          <Switch>
-            <Route component={Frame} />
-          </Switch>
+          <Frame />
         </Router>
       </React.Fragment>
     );
