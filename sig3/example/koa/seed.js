@@ -1,5 +1,7 @@
 const request = require("request");
 
+const users = [{ email: "bram.kaashoek@amis.nl", password: "superVeiligWachtwoord", username: "Bram" }];
+
 const accommodations = [
   {
     name: "Romantische vuurtoren",
@@ -141,16 +143,29 @@ const accommodations = [
   }
 ];
 
-accommodations.map(acc => {
-  const options = {
-    url: "http://localhost:3030/accommodations",
-    headers: { "Content-Type": "application/json" },
-    method: "POST",
-    body: JSON.stringify(acc)
-  };
+const getOptions = (path, body) => ({
+  url: `http://localhost:3030/${path}`,
+  headers: { "Content-Type": "application/json" },
+  method: "POST",
+  body: JSON.stringify(body)
+});
+
+const seed = (path, options) => {
   request(options, (err, res, body) => {
     if (err) console.log(err);
-    if (res && res.statusCode === 200) console.log("accommodation seeded");
-    if (res && res.statusCode !== 200) console.log("error: statuscode " + res.statusCode);
+    if (res && res.statusCode === 200) console.log(`seeded on ${path}`);
+    if (res && res.statusCode !== 200) console.log(`error: statuscode ${res.statusCode}`);
   });
+};
+
+users.map(user => {
+  const path = "users";
+  const options = getOptions("users", user);
+  seed(path, options);
+});
+
+accommodations.map(acc => {
+  const path = "accommodations";
+  const options = getOptions(path, acc);
+  seed(path, options);
 });
