@@ -1,7 +1,7 @@
 import { fetch } from "./fetch";
 
 export const login = async (email, password) => {
-  return await fetch("auth", { method: "POST", body: JSON.stringify({ email, password }) }).then(async result => {
+  return await fetch("auth", { method: "POST", body: { email, password } }).then(async result => {
     console.log(result);
     if (result) {
       window.localStorage.setItem("jwt", result.jwt);

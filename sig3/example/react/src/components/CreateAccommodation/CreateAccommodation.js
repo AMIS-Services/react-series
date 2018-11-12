@@ -1,6 +1,8 @@
 import * as React from "react";
 import { withStyles, MenuItem, InputLabel, FormControl, Select, Input, Button } from "@material-ui/core";
+import { withRouter } from "react-router-dom";
 import { TextField } from "@material-ui/core";
+import { fetch } from "../../common/fetch";
 
 const styles = {
   root: {
@@ -21,19 +23,26 @@ const styles = {
 
 class CreateAccommodation extends React.Component {
   state = {
-    name: undefined,
-    location: undefined,
-    imgUrl: undefined,
-    description: undefined,
+    name: "",
+    location: "",
+    imgUrl: "",
+    description: "",
     amenities: [],
   };
 
   handleChange = event => {
+    this.setState({ [event.target.id]: event.target.value });
+  };
+
+  handleChangeAmenities = event => {
     this.setState({ amenities: event.target.value });
   };
 
-  submit = () => {
-    console.log("vuur");
+  submit = async () => {
+    const { imgUrl, ...accommodation } = this.state;
+    accommodation.images = [imgUrl];
+    await fetch("accommodations", { method: "POST", body: accommodation });
+    this.props.history.push("/");
   };
 
   render() {
@@ -55,17 +64,23 @@ class CreateAccommodation extends React.Component {
     return (
       <div className={this.props.classes.root}>
         Accommodatie aanmaken
-        <TextField id="name" required label="Naam" value={this.state.name} />
-        <TextField id="location" required label="Locatie" value={this.state.location} />
-        <TextField id="imgUrl" required label="Foto URL" value={this.state.imgUrl} />
-        <TextField id="description" required label="Beschrijving" value={this.state.description} />
+        <TextField id="name" required label="Naam" value={this.state.name} onChange={this.handleChange} />
+        <TextField id="location" required label="Locatie" value={this.state.location} onChange={this.handleChange} />
+        <TextField id="imgUrl" required label="Foto URL" value={this.state.imgUrl} onChange={this.handleChange} />
+        <TextField
+          id="description"
+          required
+          label="Beschrijving"
+          value={this.state.description}
+          onChange={this.handleChange}
+        />
         <FormControl>
           <InputLabel>Faciliteiten</InputLabel>
           <Select
             multiple
             value={this.state.amenities}
-            onChange={this.handleChange}
-            input={<Input id="select-multiple" />}
+            onChange={this.handleChangeAmenities}
+            input={<Input id="amenities" />}
           >
             {amenities.map(amenity => (
               <MenuItem key={amenity} value={amenity}>
@@ -84,4 +99,4 @@ class CreateAccommodation extends React.Component {
   }
 }
 
-export default withStyles(styles)(CreateAccommodation);
+export default withStyles(styles)(withRouter(CreateAccommodation));

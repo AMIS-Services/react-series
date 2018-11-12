@@ -57,7 +57,7 @@ class AccommodationCard extends React.Component {
 
     const newUser = await fetch(`users/${this.context.user._id}`, {
       method: "PUT",
-      body: JSON.stringify(user),
+      body: user,
     });
     this.context.updateUser(newUser);
   };
@@ -111,6 +111,5 @@ AccommodationCard.propTypes = {
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    favorite: PropTypes.bool.isRequired,
   }).isRequired,
 };
