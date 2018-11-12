@@ -1,5 +1,5 @@
 import * as React from "react";
-import { withStyles, MenuItem, InputLabel, FormControl, Select, Input } from "@material-ui/core";
+import { withStyles, MenuItem, InputLabel, FormControl, Select, Input, Button } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
 
 const styles = {
@@ -7,6 +7,15 @@ const styles = {
     margin: 32,
     display: "flex",
     flexDirection: "column",
+  },
+  buttons: {
+    display: "flex",
+    justifyContent: "flex-end",
+    margin: 32,
+  },
+  submit: {
+    backgroundColor: "red",
+    color: "white",
   },
 };
 
@@ -21,6 +30,10 @@ class CreateAccommodation extends React.Component {
 
   handleChange = event => {
     this.setState({ amenities: event.target.value });
+  };
+
+  submit = () => {
+    console.log("vuur");
   };
 
   render() {
@@ -61,6 +74,11 @@ class CreateAccommodation extends React.Component {
             ))}
           </Select>
         </FormControl>
+        <div className={this.props.classes.buttons}>
+          <Button className={this.props.classes.submit} onClick={this.submit}>
+            Aanmaken
+          </Button>
+        </div>
       </div>
     );
   }
