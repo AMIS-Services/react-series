@@ -20,6 +20,9 @@ class Frame extends React.Component {
       logout();
       this.setState({ user: undefined });
     },
+    updateUser: user => {
+      this.setState({ user });
+    },
   };
 
   async componentDidMount() {

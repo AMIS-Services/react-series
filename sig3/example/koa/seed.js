@@ -1,6 +1,6 @@
 const request = require("request-promise");
 
-const users = [{ email: "bram.kaashoek@amis.nl", password: "123", username: "Bram" }];
+const users = [{ email: "bram.kaashoek@amis.nl", password: "123", username: "Bram", favoriteAccommodations: [] }];
 
 const accommodations = [
   {

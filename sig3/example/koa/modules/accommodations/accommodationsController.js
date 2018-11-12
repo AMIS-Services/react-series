@@ -1,6 +1,6 @@
 import Router from "koa-router";
 import Accommodation from "./accommodationsSchema";
-import { isAuth } from "../auth/helpers";
+import { isAuth, getUserId } from "../auth/helpers";
 
 export const router = new Router();
 
@@ -31,8 +31,11 @@ router.get("/:id", async ctx => {
 
 router.use(isAuth).post("/", async ctx => {
   console.log("POST /accommodations");
-  const accommodations = await Accommodation.create(ctx.request.body);
-  ctx.body = accommodations;
+  const accommodation = ctx.request.body;
+  const userId = getUserId(ctx.request);
+  accommodation.createdBy = userId;
+  const savedAccommodation = await Accommodation.create(accommodation);
+  ctx.body = savedAccommodation;
 });
 
 router.use(isAuth).put("/:id", async ctx => {

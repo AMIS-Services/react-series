@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { HouseIcon } from "../../resources/HouseIcon";
 import { fetch } from "../../common/fetch";
+import { UserContext } from "../../common/context";
 
 const styles = {
   root: {
@@ -48,12 +49,17 @@ class AccommodationCard extends React.Component {
   state = { ...this.props.accommodation };
 
   toggleFavorite = async () => {
-    await this.setState(state => ({ favorite: !state.favorite }));
-    const { _id, createdAt, updatedAt, ...accommodation } = this.state;
-    fetch(`accommodations/${this.state._id}`, {
+    const { _id, createdAt, updatedAt, ...user } = this.context.user;
+    const accommodationIndex = user.favoriteAccommodations.indexOf(this.state._id);
+    accommodationIndex === -1
+      ? user.favoriteAccommodations.push(this.state._id)
+      : user.favoriteAccommodations.splice(accommodationIndex, 1);
+
+    const newUser = await fetch(`users/${this.context.user._id}`, {
       method: "PUT",
-      body: JSON.stringify(accommodation),
+      body: JSON.stringify(user),
     });
+    this.context.updateUser(newUser);
   };
 
   goToDetail = () => {
@@ -61,7 +67,7 @@ class AccommodationCard extends React.Component {
   };
 
   render() {
-    const { image, name, location, favorite, description } = this.state;
+    const { image, name, location, _id, description } = this.state;
     return (
       <Grid item xs={12} sm={4} lg={3}>
         <Card className={this.props.classes.root}>
@@ -73,17 +79,29 @@ class AccommodationCard extends React.Component {
             <div className="sub-header">{location}</div>
             <p>{description}</p>
           </main>
-          <footer>
-            <HouseIcon
-              onClick={this.toggleFavorite}
-              className={favorite ? this.props.classes.houseIconFavorite : this.props.classes.houseIcon}
-            />
-          </footer>
+          <UserContext.Consumer>
+            {context => {
+              return context.user ? (
+                <footer>
+                  <HouseIcon
+                    onClick={this.toggleFavorite}
+                    className={
+                      context.user.favoriteAccommodations.includes(_id)
+                        ? this.props.classes.houseIconFavorite
+                        : this.props.classes.houseIcon
+                    }
+                  />
+                </footer>
+              ) : null;
+            }}
+          </UserContext.Consumer>
         </Card>
       </Grid>
     );
   }
 }
+
+AccommodationCard.contextType = UserContext;
 
 export default withStyles(styles)(withRouter(AccommodationCard));
 

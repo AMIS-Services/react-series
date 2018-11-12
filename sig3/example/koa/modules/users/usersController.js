@@ -1,7 +1,7 @@
 import Router from "koa-router";
 import User from "./usersSchema";
 import bcrypt from "bcrypt";
-import { isAuth } from "../auth/helpers";
+import { isAuth, getUserId } from "../auth/helpers";
 
 export const router = new Router();
 
@@ -27,6 +27,20 @@ router.post("/", async ctx => {
 router.use(isAuth).get("/:id", async ctx => {
   const id = ctx.params.id;
   console.log(`GET user ${id}`);
+  const user = await User.findById(id);
+  ctx.body = user;
+});
+
+router.use(isAuth).put("/:id", async ctx => {
+  const id = ctx.params.id;
+  console.log(`PUT user ${id}`);
+  const userId = getUserId(ctx.request);
+  if (id !== userId) {
+    const error = `you are not allowed to change another users info`;
+    console.log(error);
+    ctx.throw(401, error);
+  }
+  await User.update({ _id: id }, ctx.request.body);
   const user = await User.findById(id);
   ctx.body = user;
 });
