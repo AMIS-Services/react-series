@@ -23,7 +23,7 @@ const styles = {
   },
   userMenu: {
     marginRight: 32,
-
+    cursor: "pointer",
     color: "white",
   },
   pointer: {
@@ -32,6 +32,7 @@ const styles = {
   link: {
     textDecoration: "none",
     color: "white",
+    marginRight: 16,
   },
   linkContainer: {
     display: "flex",

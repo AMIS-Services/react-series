@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { login, checkSession, logout } from "../../common/auth";
 import Appbar from "../Appbar/Appbar";
 import Accommodations from "../Accommodations/Accommodations";
+import CreateAccommodation from "../CreateAccommodation/CreateAccommodation";
 import Page404 from "../Error/Page404";
 import AccommodationsDetail from "../AccomodationsDetail/AccommodationsDetail";
 import { UserContext } from "../../common/context";
@@ -30,11 +31,14 @@ class Frame extends React.Component {
     return (
       <UserContext.Provider value={this.state}>
         <Appbar title="AMISBnB" />
-        <Switch>
-          <Route exact path="/" component={Accommodations} />
-          <Route path="/accomodation/:id" component={AccommodationsDetail} />
-          <Route component={Page404} />
-        </Switch>
+        <React.Fragment>
+          <Switch>
+            <Route exact path="/" component={Accommodations} />
+            <Route path="/accommodation/:id" component={AccommodationsDetail} />
+            <Route path="/create" component={CreateAccommodation} />
+            <Route component={Page404} />
+          </Switch>
+        </React.Fragment>
       </UserContext.Provider>
     );
   }

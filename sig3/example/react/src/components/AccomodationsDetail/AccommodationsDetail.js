@@ -80,7 +80,7 @@ class AccommodationsDetail extends React.Component {
     const path = this.props.match.params.id;
     fetch(`accommodations/${path}`).then(result => {
       if (result === undefined) {
-        this.props.history.replace("/404");
+        // this.props.history.replace("/404");
       } else {
         this.setState({ accommodation: result });
       }

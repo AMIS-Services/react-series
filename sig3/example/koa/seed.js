@@ -169,21 +169,20 @@ const userPromises = users.map(async user => {
 });
 
 // wait for all users to be seeded
+let token = undefined;
 Promise.all(userPromises).then(async () => {
-  let token = undefined;
   // get auth token for the first user
   await request(
     getOptions("auth", {
       ...users[0]
     }),
     (_, res) => {
-      token = res.body;
+      console.log(`got auth token`);
+      token = JSON.parse(res.body).jwt;
+      accommodations.map(acc => {
+        const options = getOptions("accommodations", acc, token);
+        seed(options);
+      });
     }
   );
-
-  // seed accommodations using the token
-  accommodations.map(acc => {
-    const options = getOptions("accommodations", acc, token);
-    seed(options);
-  });
 });
