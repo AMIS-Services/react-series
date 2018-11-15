@@ -12,19 +12,19 @@ const styles = {
 };
 
 class Accommodations extends React.Component {
-  state = { accommodations: undefined };
-
   componentDidMount() {
     this.props.getAllAccommodations();
   }
 
   render() {
+    if (!this.props.accommodations) return null;
+
     return (
       <div className={this.props.classes.root}>
         <main>
           <Grid container spacing={24} className={this.props.classes.cardGrid}>
-            {this.state.accommodations &&
-              this.state.accommodations.map((accommodation, index) => (
+            {this.props.accommodations &&
+              this.props.accommodations.map((accommodation, index) => (
                 <AccommodationCard accommodation={accommodation} key={index} />
               ))}
           </Grid>
@@ -34,7 +34,7 @@ class Accommodations extends React.Component {
   }
 }
 
-const mapStateToProps = accommodations => ({ accommodations });
+const mapStateToProps = accommodations => accommodations;
 const mapDispatchToProps = { getAllAccommodations };
 
 export default connect(
