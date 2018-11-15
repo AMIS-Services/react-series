@@ -5,7 +5,7 @@ export const getAllAccommodations = () => {
   return async dispatch => {
     dispatch({ type: REQUEST_ACCOMMODATIONS });
 
-    const result = await fetch("accommodations");
+    const result = await fetch("accommodations").then(res => console.log(res));
     dispatch({ type: REQUEST_ACCOMMODATIONS, payload: result });
   };
 };

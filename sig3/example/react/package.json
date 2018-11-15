@@ -20,7 +20,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.5"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
