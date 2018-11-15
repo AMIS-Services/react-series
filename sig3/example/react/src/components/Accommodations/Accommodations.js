@@ -1,9 +1,9 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import AccommodationCard from "../AccomodationCard/AccommodationCard";
-
-import { fetch } from "../../common/fetch";
+import { getAllAccommodations } from "../../store/accommodations/actions";
 
 const styles = {
   cardGrid: {
@@ -15,7 +15,7 @@ class Accommodations extends React.Component {
   state = { accommodations: undefined };
 
   componentDidMount() {
-    fetch("accommodations").then(result => this.setState({ accommodations: result }));
+    this.props.getAllAccommodations();
   }
 
   render() {
@@ -34,4 +34,10 @@ class Accommodations extends React.Component {
   }
 }
 
-export default withStyles(styles)(Accommodations);
+const mapStateToProps = accommodations => ({ accommodations });
+const mapDispatchToProps = { getAllAccommodations };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Accommodations));
