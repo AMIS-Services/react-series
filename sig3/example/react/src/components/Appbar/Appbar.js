@@ -77,10 +77,17 @@ class Appbar extends React.PureComponent {
                 </div>
               </React.Fragment>
             ) : (
-              <div className={this.props.classes.userMenu} onClick={this.toggleDialog}>
-                Login
+              <>
+                <div
+                  className={this.props.classes.userMenu}
+                  onClick={() => {
+                    this.setState({ isLoginDialogOpen: true });
+                  }}
+                >
+                  Login
+                </div>
                 <LoginDialog open={this.state.isLoginDialogOpen} handleClose={this.toggleDialog} />
-              </div>
+              </>
             )}
           </div>
         )}
