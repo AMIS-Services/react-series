@@ -11,7 +11,12 @@ export const getAllAccommodations = () => {
     dispatch({ type: REQUEST_ACCOMMODATIONS });
 
     const result = await fetch("accommodations");
-    dispatch({ type: RECEIVED_ACCOMMODATIONS, payload: result });
+
+    if (!result) {
+      dispatch({ type: ERROR_ACCOMMODATION });
+    } else {
+      dispatch({ type: RECEIVED_ACCOMMODATIONS, payload: result });
+    }
   };
 };
 
@@ -20,6 +25,7 @@ export const createAccommodation = accommodation => {
     dispatch({ type: CREATING_ACCOMMODATION });
 
     const result = await fetch("accommodations", { method: "POST", body: accommodation });
+
     if (!result) {
       dispatch({ type: ERROR_ACCOMMODATION });
     } else {
