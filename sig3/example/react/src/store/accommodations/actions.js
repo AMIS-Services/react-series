@@ -3,7 +3,7 @@ import { fetch } from "../../common/fetch";
 export const REQUEST_ACCOMMODATIONS = "REQUEST_ACCOMMODATIONS";
 export const RECEIVE_ACCOMMODATIONS = "RECEIVE_ACCOMMODATIONS";
 export const CREATE_ACCOMMODATION = "CREATE_ACCOMMODATION";
-export const ERROR_ACCOMMODATIONS = "ERROR_ACCOMMODATIONS";
+export const ERROR_ACCOMMODATION = "ERROR_ACCOMMODATION";
 
 export const getAllAccommodations = () => {
   return async dispatch => {
@@ -19,9 +19,8 @@ export const createAccommodation = accommodation => {
     dispatch({ type: REQUEST_ACCOMMODATIONS });
 
     const result = await fetch("accommodations", { method: "POST", body: accommodation });
-    console.log(result);
     if (!result) {
-      dispatch({ type: ERROR_ACCOMMODATIONS });
+      dispatch({ type: ERROR_ACCOMMODATION });
     } else {
       dispatch({ type: CREATE_ACCOMMODATION, payload: result });
     }

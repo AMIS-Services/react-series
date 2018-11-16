@@ -1,4 +1,4 @@
-import { RECEIVE_ACCOMMODATIONS, REQUEST_ACCOMMODATIONS, CREATE_ACCOMMODATION, ERROR_ACCOMMODATIONS } from "./actions";
+import { RECEIVE_ACCOMMODATIONS, REQUEST_ACCOMMODATIONS, CREATE_ACCOMMODATION, ERROR_ACCOMMODATION } from "./actions";
 
 export const accommodationsReducer = (state = [], action = {}) => {
   switch (action.type) {
@@ -8,7 +8,7 @@ export const accommodationsReducer = (state = [], action = {}) => {
       return [...action.payload];
     case CREATE_ACCOMMODATION:
       return [{ ...action.payload }];
-    case ERROR_ACCOMMODATIONS:
+    case ERROR_ACCOMMODATION:
       return state;
     default:
       return state;
