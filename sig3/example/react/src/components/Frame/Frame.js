@@ -7,6 +7,7 @@ import CreateAccommodation from "../CreateAccommodation/CreateAccommodation";
 import Page404 from "../Error/Page404";
 import AccommodationsDetail from "../AccomodationsDetail/AccommodationsDetail";
 import { UserContext } from "../../common/context";
+import Register from "../Login/Register";
 
 class Frame extends React.Component {
   state = {
@@ -39,6 +40,7 @@ class Frame extends React.Component {
             <Route exact path="/" component={Accommodations} />
             <Route path="/accommodation/:id" component={AccommodationsDetail} />
             <Route path="/create" component={CreateAccommodation} />
+            <Route path="/register" component={Register} />
             <Route component={Page404} />
           </Switch>
         </React.Fragment>

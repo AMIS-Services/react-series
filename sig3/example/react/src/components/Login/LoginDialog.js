@@ -1,6 +1,7 @@
 import * as React from "react";
 import { withStyles, Dialog, DialogTitle, Input, Button } from "@material-ui/core";
 import { UserContext } from "../../common/context";
+import { Link } from "react-router-dom";
 
 const styles = {
   title: {
@@ -23,6 +24,11 @@ const styles = {
     display: "flex",
     justifyContent: "flex-end",
     margin: 16,
+  },
+  link: {
+    marginLeft: 16,
+    color: "black",
+    fontSize: 12,
   },
 };
 
@@ -56,6 +62,11 @@ class LoginDialog extends React.Component {
             }}
             placeholder="Password"
           />
+        </div>
+        <div className={this.props.classes.link}>
+          <Link to="/register" onClick={this.props.handleClose}>
+            Nog geen account?
+          </Link>
         </div>
         <div className={this.props.classes.buttons}>
           <Button onClick={this.handleLogin}>OK</Button>
