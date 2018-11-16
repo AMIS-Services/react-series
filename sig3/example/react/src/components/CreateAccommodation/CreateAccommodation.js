@@ -1,8 +1,9 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { withStyles, MenuItem, InputLabel, FormControl, Select, Input, Button } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import { TextField } from "@material-ui/core";
-import { fetch } from "../../common/fetch";
+import { createAccommodation } from "../../store/accommodations/actions";
 
 const styles = {
   root: {
@@ -41,7 +42,7 @@ class CreateAccommodation extends React.Component {
   submit = async () => {
     const { imgUrl, ...accommodation } = this.state;
     accommodation.images = [imgUrl];
-    await fetch("accommodations", { method: "POST", body: accommodation });
+    this.props.createAccommodation(accommodation);
     this.props.history.push("/");
   };
 
@@ -99,4 +100,10 @@ class CreateAccommodation extends React.Component {
   }
 }
 
-export default withStyles(styles)(withRouter(CreateAccommodation));
+const mapStateToProps = accommodation => accommodation;
+const mapDispatchToProps = { createAccommodation };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(withRouter(CreateAccommodation)));
