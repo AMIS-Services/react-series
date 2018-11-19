@@ -4,7 +4,6 @@ const AccommodationSchema = new mongoose.Schema(
   {
     name: { type: String },
     location: { type: String },
-    favorite: { type: Boolean },
     images: { type: [String] },
     amenities: { type: [String] },
     description: { type: String },

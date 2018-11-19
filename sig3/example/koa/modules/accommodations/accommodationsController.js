@@ -13,7 +13,6 @@ router.get("/", async ctx => {
     location: a.location,
     name: a.name,
     description: a.description,
-    favorite: a.favorite,
     image: a.images[0]
   }));
   ctx.body = accommodationsOverview;

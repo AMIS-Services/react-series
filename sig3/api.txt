@@ -1,0 +1,35 @@
+/accommodations
+GET '/':    returns array of accommodations with _id, location, name, description, image
+GET '/:id': returns accommodation with _id, name, location, images[], amenities[], description, createdBy (user._id), timestamps
+POST '/':   requires JWT. Takes the complete accommodation except for _id and timestamps. returns created accommodation
+PUT '/:id': requires JWT. Takes the complete accommodation except for _id and timestamps. returns updated accommodation
+
+/auth
+POST '/':   takes object with username and password. returns object {jwt: ${jwt}}
+
+/users
+POST '/':   requires JWT. Takes the complete user except for _id, timestamps and favoriteAccommodations . returns updated user
+GET '/':    requires JWT. returns  user with _id, email, username, favoriteAccommodations (accommodation._id array), timestamps
+PUT '/':    requires JWT. Takes the complete user except for _id and timestamps. returns updated user
+
+
+
+
+const AccommodationSchema =  {
+    name: { type: String },
+    location: { type: String },
+    images: { type: [String] },
+    amenities: { type: [String] },
+    description: { type: String },
+    createBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+  },
+  { timestamps: true }
+
+
+const UserSchema = {
+    email: { type: String, unique: true },
+    username: { type: String, unique: true },
+    password: { type: String },
+    favoriteAccommodations: [{ type: mongoose.Schema.Types.ObjectId, ref: "Accommodation" }]
+  },
+  { timestamps: true }
