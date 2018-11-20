@@ -7,7 +7,8 @@ const AccommodationSchema = new mongoose.Schema(
     favorite: { type: Boolean },
     images: { type: [String] },
     amenities: { type: [String] },
-    description: { type: String }
+    description: { type: String },
+    createBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
   },
   { timestamps: true }
 );

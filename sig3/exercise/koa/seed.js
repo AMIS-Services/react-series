@@ -1,4 +1,6 @@
-const request = require("request");
+const request = require("request-promise");
+
+const users = [{ email: "bram.kaashoek@amis.nl", password: "123", username: "Bram", favoriteAccommodations: [] }];
 
 const accommodations = [
   {
@@ -141,16 +143,46 @@ const accommodations = [
   }
 ];
 
-accommodations.map(acc => {
+const getOptions = (path, body, token = undefined) => {
   const options = {
-    url: "http://localhost:3030/accommodations",
+    url: `http://localhost:3030/${path}`,
     headers: { "Content-Type": "application/json" },
     method: "POST",
-    body: JSON.stringify(acc)
+    body: JSON.stringify(body)
   };
-  request(options, (err, res, body) => {
+  if (token) options.headers["Authorization"] = `Bearer ${token}`;
+  return options;
+};
+
+const seed = async options => {
+  await request(options, (err, res) => {
     if (err) console.log(err);
-    if (res && res.statusCode === 200) console.log("accommodation seeded");
-    if (res && res.statusCode !== 200) console.log("error: statuscode " + res.statusCode);
+    if (res && res.statusCode === 200) console.log(`seeded on ${options.url}`);
+    if (res && res.statusCode !== 200) console.log(`error: statuscode ${res.statusCode}`);
   });
+};
+
+// seed users
+const userPromises = users.map(async user => {
+  const options = getOptions("users", user);
+  await seed(options);
+});
+
+// wait for all users to be seeded
+let token = undefined;
+Promise.all(userPromises).then(async () => {
+  // get auth token for the first user
+  await request(
+    getOptions("auth", {
+      ...users[0]
+    }),
+    (_, res) => {
+      console.log(`got auth token`);
+      token = JSON.parse(res.body).jwt;
+      accommodations.map(acc => {
+        const options = getOptions("accommodations", acc, token);
+        seed(options);
+      });
+    }
+  );
 });
