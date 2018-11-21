@@ -13,23 +13,6 @@
       "export default ${1:ComponentName}"
     ]
   },
-  "styledComponent": {
-    "prefix": "styledComponent",
-    "body": [
-      "import * as React from 'react';",
-      "import withStyles from '@material-ui/core/styles/withStyles';",
-      "",
-      "const styles = () => ({ root: {}})",
-      "",
-      "class ${1:ComponentName} extends React.Component {",
-      "render() {",
-      "return(<>hello world</>)",
-      "}",
-      "}",
-      "",
-      "export default withStyles(styles)(${1:ComponentName})"
-    ]
-  },
   "connectedComponent": {
     "prefix": "connectedComponent",
     "body": [
