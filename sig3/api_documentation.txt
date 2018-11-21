@@ -8,9 +8,9 @@ PUT '/:id': requires JWT. Takes the complete accommodation except for _id and ti
 POST '/':   takes object with username and password. returns object {jwt: ${jwt}}
 
 /users
-POST '/':   requires JWT. Takes the complete user except for _id, timestamps and favoriteAccommodations . returns updated user
-GET '/':    requires JWT. returns  user with _id, email, username, favoriteAccommodations (accommodation._id array), timestamps
-PUT '/':    requires JWT. Takes the complete user except for _id and timestamps. returns updated user
+POST '/':      takes the complete user except for _id, timestamps and favoriteAccommodations . returns updated user
+GET '/:id':    requires JWT. returns  user with _id, email, username, favoriteAccommodations (accommodation._id array), timestamps
+PUT '/:id':    requires JWT. Takes the complete user except for _id and timestamps. returns updated user
 
 
 
