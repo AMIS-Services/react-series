@@ -1,6 +1,13 @@
 const request = require("request-promise");
 
-const users = [{ email: "bram.kaashoek@amis.nl", password: "123", username: "Bram", favoriteAccommodations: [] }];
+const users = [
+  {
+    email: "bram.kaashoek@amis.nl",
+    password: "123",
+    username: "Bram",
+    favoriteAccommodations: []
+  }
+];
 
 const accommodations = [
   {
@@ -121,7 +128,9 @@ const accommodations = [
     name: "Appartement voor twee personen",
     location: "Utrecht",
     favorite: false,
-    images: ["http://www.interieur-inrichting.net/afbeeldingen/knus-scandinavisch-appartement-645x484.jpg"],
+    images: [
+      "http://www.interieur-inrichting.net/afbeeldingen/knus-scandinavisch-appartement-645x484.jpg"
+    ],
     amenities: [
       "WiFi",
       "droger",
@@ -158,7 +167,8 @@ const seed = async options => {
   await request(options, (err, res) => {
     if (err) console.log(err);
     if (res && res.statusCode === 200) console.log(`seeded on ${options.url}`);
-    if (res && res.statusCode !== 200) console.log(`error: statuscode ${res.statusCode}`);
+    if (res && res.statusCode !== 200)
+      console.log(`error: statuscode ${res.statusCode}`);
   });
 };
 
