@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Appbar from "../Appbar/Appbar";
 import Accommodations from "../Accommodations/Accommodations";
 import Page404 from "../Error/Page404";
-import AccommodationsDetail from "../AccomodationsDetail/AccommodationsDetail";
+import AccommodationsDetail from "../AccommodationsDetail/AccommodationsDetail";
 
 class Frame extends React.Component {
   componentDidMount() {}
