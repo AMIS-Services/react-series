@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.4.0",
-    "eslint": "^5.9.0",
     "history": "^4.7.2",
     "prop-types": "^15.6.2",
     "react": "^16.6.1",
