@@ -2,25 +2,13 @@ import * as React from "react";
 import { Card, Grid } from "@material-ui/core";
 import "./AccommodationCard.css";
 import { withRouter } from "react-router-dom";
-import { fetch } from "../../common/fetch";
 
 import { HouseIcon } from "../../resources/HouseIcon";
 
 class AccommodationCard extends React.Component {
   state = { ...this.props.accommodation };
 
-  toggleFavorite = async () => {
-    await this.setState(state => ({ favorite: !state.favorite }));
-    const { _id, createdAt, updatedAt, ...accommodation } = this.state;
-    fetch(`accommodations/${this.state._id}`, {
-      method: "PUT",
-      body: JSON.stringify(accommodation),
-    });
-  };
-
-  goToDetails = () => {
-    this.props.history.push("accommodation/" + this.state._id);
-  };
+  toggleFavorite = () => {};
 
   render() {
     const { image, name, location, favorite, description } = this.state;
