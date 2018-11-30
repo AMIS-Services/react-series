@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
-import AccommodationCard from "../AccomodationCard/AccommodationCard";
+import AccommodationCard from "../AccommodationCard/AccommodationCard";
 import { getAllAccommodations } from "../../store/accommodations/actions";
 
 const styles = {

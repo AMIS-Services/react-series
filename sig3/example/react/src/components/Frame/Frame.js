@@ -5,7 +5,7 @@ import Appbar from "../Appbar/Appbar";
 import Accommodations from "../Accommodations/Accommodations";
 import CreateAccommodation from "../CreateAccommodation/CreateAccommodation";
 import Page404 from "../Error/Page404";
-import AccommodationsDetail from "../AccomodationsDetail/AccommodationsDetail";
+import AccommodationsDetail from "../AccommodationsDetail/AccommodationsDetail";
 import { UserContext } from "../../common/context";
 import Register from "../Login/Register";
 
