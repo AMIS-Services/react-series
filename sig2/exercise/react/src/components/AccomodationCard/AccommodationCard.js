@@ -36,4 +36,4 @@ class AccommodationCard extends React.Component {
   }
 }
 
-export default withRouter(AccommodationCard);
+export default AccommodationCard;

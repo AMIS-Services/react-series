@@ -79,6 +79,7 @@ class AccommodationsDetail extends React.Component {
   componentDidMount() {
     const path = this.props.match.params.id;
     fetch(`accommodations/${path}`).then(result => {
+      console.log(result);
       if (result === undefined) {
         this.props.history.replace("/404");
       } else {
